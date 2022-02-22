@@ -240,40 +240,48 @@ const queue = [
 ];
 
 const rate = 145 / 14;
-const updatedOn = new Date("2022-02-14")
-const dayInMs = 1000 * 60 * 60 * 24
+const updatedOn = new Date("2022-02-14");
+const dayInMs = 1000 * 60 * 60 * 24;
 
 function App() {
   const [date, setDate] = useState(new Date());
 
-  let spot = 0;
+  // What was your spot in the queue on the day the data was updated.
+  let spotOnUpdate = 0;
 
-  console.log("=========================================");
   queue.forEach((month) => {
     if (month.from.getTime() < date.getTime()) {
       if (month.to.getTime() < date.getTime()) {
-        spot += month.priority;
-        console.log(month.from, month.priority);
+        spotOnUpdate += month.priority;
       } else {
         const daysInMonth = month.to.getDate();
-        const v = (month.priority / daysInMonth) * date.getDate();
-        console.log(month.from, v);
-        spot += v;
+        spotOnUpdate += (month.priority / daysInMonth) * date.getDate();
       }
     }
   });
 
-  const today = new Date()
-  const daysSinceUpdate = (today.getTime() - updatedOn.getTime()) / dayInMs
-  const daysLeft = (spot / rate) - daysSinceUpdate;
-  const pickupDate = new Date(today.getTime() + (daysLeft * dayInMs))
+  const today = new Date();
+  const msSinceUpdate = today.getTime() - updatedOn.getTime();
+  const daysSinceUpdate = msSinceUpdate / dayInMs;
+
+  // How many applications have been processed since the data was updated.
+  const processedSinceUpdate = daysSinceUpdate * rate;
+
+  // What is your spot in the queue right now.
+  const spot = spotOnUpdate - processedSinceUpdate;
+
+  // How many days untill your application is allocated.
+  const daysLeft = spot / rate;
+
+  // The date your application will be allocated.
+  const pickupDate = new Date(today.getTime() + daysLeft * dayInMs);
 
   return (
     <div className="App">
       <DatePicker onChange={setDate} value={date} />
-      <div>Spot: {Math.round(spot)}</div>
-      <div>Days until being picked up: {Math.round(daysLeft)}</div>
-      <div>ETA: {pickupDate.toDateString()}</div>
+      <div>Spot in the queue as of today: {Math.round(spot)}</div>
+      <div>Days until being allocated: {Math.round(daysLeft)}</div>
+      <div>Estimated allocation date: {pickupDate.toDateString()}</div>
     </div>
   );
 }
