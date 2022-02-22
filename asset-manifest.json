@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/nzi-queue/static/css/main.1ea3171a.css",
-    "main.js": "/nzi-queue/static/js/main.0fb98a9d.js",
+    "main.js": "/nzi-queue/static/js/main.035d4eaa.js",
     "static/js/787.96501547.chunk.js": "/nzi-queue/static/js/787.96501547.chunk.js",
     "index.html": "/nzi-queue/index.html",
     "main.1ea3171a.css.map": "/nzi-queue/static/css/main.1ea3171a.css.map",
-    "main.0fb98a9d.js.map": "/nzi-queue/static/js/main.0fb98a9d.js.map",
+    "main.035d4eaa.js.map": "/nzi-queue/static/js/main.035d4eaa.js.map",
     "787.96501547.chunk.js.map": "/nzi-queue/static/js/787.96501547.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1ea3171a.css",
-    "static/js/main.0fb98a9d.js"
+    "static/js/main.035d4eaa.js"
   ]
 }
